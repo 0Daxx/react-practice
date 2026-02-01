@@ -1,13 +1,14 @@
 // import { useState } from 'react'
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
-import './App.css'
-import { ProgressBar } from './pages/ProgressBar'
+import "./App.css";
+import { CheckBox } from "./pages/CheckBox";
+import { ProgressBar } from "./pages/ProgressBar";
 // import { useState } from 'react';
-import { Timer } from './pages/Timer';
+import { Timer } from "./pages/Timer";
 
-import dayjs from 'dayjs';
-import { useState , useEffect } from 'react';
+import dayjs from "dayjs";
+import { useState, useEffect, Fragment } from "react";
 
 function App() {
   // const [count, setCount] = useState(0);
@@ -30,27 +31,37 @@ function App() {
   // Q3
   // The Auto-Saving Input 💾: Create a text area where, after the user stops typing for 2 timeLeft, a "Saved!" message appears automatically using a timeout.
 
-  function UserInput(){
-    const [userinput,setUserinput] = useState('');
+  function UserInput() {
+    const [userinput, setUserinput] = useState("");
 
-    function saveUserInput(event){
+    function saveUserInput(event) {
       setUserinput(event.target.value);
     }
-    return (<div>  
-    <input type="text" onChange={saveUserInput} />
-    <p> text you typed :  {userinput}</p>
-    </div>)
+    return (
+      <div>
+        <input type="text" onChange={saveUserInput} />
+        <p> text you typed : {userinput}</p>
+      </div>
+    );
   }
 
+  
   return (
     <>
       {/* <Timer /> */}
       {/* <UserInput /> */}
-      {/* <Clock /> */}
-      <h1>hello </h1>
-      <ProgressBar />
+      <Clock />
+      <CheckBox />
+      {/* <h1>hello </h1> */}
+      {/* <ProgressBar /> */}
     </>
   );
-} 
+}
 
-export default App
+export default App;
+/* 
+
+Challenge 5: Circular progress bar (SVG-based)
+
+
+*/
