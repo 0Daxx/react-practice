@@ -4,6 +4,7 @@
 import "./App.css";
 import { Button } from "./pages/Button";
 import { CheckBox } from "./pages/CheckBox";
+import { DarkTheme } from "./pages/DarkTheme";
 import { ProgressBar } from "./pages/ProgressBar";
 // import { useState } from 'react';
 import { Timer } from "./pages/Timer";
@@ -54,7 +55,8 @@ function App() {
       {/* <Timer /> */}
       {/* <UserInput /> */}
       <Clock />
-      <CheckBox />
+      < DarkTheme />
+      {/* <CheckBox /> */}
       {/* < Button/> */}
       {/* <h1>hello </h1> */}
       {/* <ProgressBar /> */}

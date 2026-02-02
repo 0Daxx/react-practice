@@ -1,0 +1,12 @@
+.para-dark{
+  width: 100vw;
+  height: 30vh;
+  color: white;
+  background-color: rgb(15, 13, 13);
+}
+.para-light{
+  width: 100vw;
+  height: 30vh;
+  background-color: white;
+  color: rgb(15, 13, 13);
+}
