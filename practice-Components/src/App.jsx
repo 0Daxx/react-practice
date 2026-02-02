@@ -54,9 +54,8 @@ function App() {
       {/* <Timer /> */}
       {/* <UserInput /> */}
       <Clock />
-      {/* <CheckBox /> */}
+      <CheckBox />
       {/* < Button/> */}
-      <HoverCounter />
       {/* <h1>hello </h1> */}
       {/* <ProgressBar /> */}
     </>

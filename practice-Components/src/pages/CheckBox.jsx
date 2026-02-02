@@ -47,7 +47,7 @@ export function CheckBox() {
       {/* React.Fragment can only have `key` and `children` props. */}
       {checkboxes.map((checkbox) => {
         return (
-          <div key={checkbox.id}>
+          <div key={checkbox.id} onClick={ () =>  toggleCheckbox(checkbox.id)} >
             <input
               type="checkbox"
               // onClick={selectBox}
