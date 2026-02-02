@@ -32,6 +32,7 @@ function App() {
   // Q3
   // The Auto-Saving Input 💾: Create a text area where, after the user stops typing for 2 timeLeft, a "Saved!" message appears automatically using a timeout.
 
+
   function UserInput() {
     const [userinput, setUserinput] = useState("");
 
@@ -54,7 +55,8 @@ function App() {
       {/* <UserInput /> */}
       <Clock />
       {/* <CheckBox /> */}
-      < Button/>
+      {/* < Button/> */}
+      <HoverCounter />
       {/* <h1>hello </h1> */}
       {/* <ProgressBar /> */}
     </>
