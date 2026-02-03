@@ -11,6 +11,8 @@ import { Timer } from "./pages/Timer";
 
 import dayjs from "dayjs";
 import { useState, useEffect, Fragment } from "react";
+// PROJECT
+import { SubmissionForm } from "./projects/SubmissionForm";
 
 function App() {
   // const [count, setCount] = useState(0);
@@ -81,8 +83,7 @@ function App() {
   return (
     <>
       <Clock />
-      <Acronym></Acronym>
-      {/* < DarkTheme /> */}
+      < SubmissionForm />
     </>
   );
 }
