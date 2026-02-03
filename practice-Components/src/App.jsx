@@ -80,13 +80,9 @@ function App() {
 
   return (
     <>
-      <Form />
       <Clock />
+      <Acronym></Acronym>
       {/* < DarkTheme /> */}
-      {/* <CheckBox /> */}
-      {/* < Button/> */}
-      {/* <h1>hello </h1> */}
-      {/* <ProgressBar /> */}
     </>
   );
 }
