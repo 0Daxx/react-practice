@@ -33,7 +33,6 @@ function App() {
   // Q3
   // The Auto-Saving Input 💾: Create a text area where, after the user stops typing for 2 timeLeft, a "Saved!" message appears automatically using a timeout.
 
-
   function UserInput() {
     const [userinput, setUserinput] = useState("");
 
@@ -47,15 +46,43 @@ function App() {
       </div>
     );
   }
+  function Count() {
+    // save in local storage
+    const [count, setCount] = useState(0);
+    function saveCount(event) {
+      setCount(Number(event.target.value));
+      localStorage.setItem("count", count);
+    }
+    return (
+      <div>
+        <button onClick={saveCount}>Count</button>
+        <p>Count : {localStorage.getItem("count")}</p>
+      </div>
+    );
+  }
+
+  function ClickMe() {
+    return (
+      <>
+        <button
+          onClick={() => {
+            console.log("clicked");
+          }}>
+          Click me{" "}
+        </button>
+      </>
+    );
+  }
 
   
 
+
+
   return (
     <>
-      {/* <Timer /> */}
-      {/* <UserInput /> */}
+      <Form />
       <Clock />
-      < DarkTheme />
+      {/* < DarkTheme /> */}
       {/* <CheckBox /> */}
       {/* < Button/> */}
       {/* <h1>hello </h1> */}
