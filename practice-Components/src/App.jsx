@@ -14,6 +14,7 @@ import { useState, useEffect, Fragment } from "react";
 // PROJECT
 import { SubmissionForm } from "./projects/SubmissionForm";
 import { Joke } from "./projects/Joke";
+import { Validate } from "./projects/Validate";
 
 function App() {
   // const [count, setCount] = useState(0);
@@ -84,8 +85,8 @@ function App() {
   return (
     <>
       <Clock />
-      < Joke />
-      {/* <  /> */}
+      {/* < Joke /> */}
+      < Validate />
       {/* <  /> */}
       {/* <  /> */}
       {/* < SubmissionForm /> */}
