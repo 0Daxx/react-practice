@@ -1,0 +1,12 @@
+.bgChanger{
+  width: 50vw;
+  height: 70vh;
+  display: flex;
+  background-color: rgb(192, 54, 54);
+  justify-content: center;
+  align-items: center;
+}
+.btn{
+  padding: 10px;
+  margin: 10px;
+}
