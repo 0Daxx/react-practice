@@ -18,6 +18,7 @@ import { Validate } from "./projects/Validate";
 import { Dice } from "./projects/Dice";
 import { BgChanger } from "./projects/BgChanger";
 import { RandomPassword } from "./projects/RandomPassword";
+import CurrencyConverter from "./projects/CurrencyConverter";
 
 function App() {
   // const [count, setCount] = useState(0);
@@ -89,8 +90,9 @@ function App() {
       {/* < Validate /> */}
       {/* < Dice /> */}
       {/* < BgChanger /> */}
+      < CurrencyConverter  />
+
       {/* <  RandomPassword /> */}
-      {/* <   /> */}
       {/* <   /> */}
       {/* <   /> */}
       {/* < SubmissionForm /> */}
