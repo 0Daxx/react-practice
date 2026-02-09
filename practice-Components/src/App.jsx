@@ -19,6 +19,7 @@ import { Dice } from "./projects/Dice";
 import { BgChanger } from "./projects/BgChanger";
 import { RandomPassword } from "./projects/RandomPassword";
 import CurrencyConverter from "./projects/CurrencyConverter";
+import { TicTacToe } from "./projects/TicTacToe";
 
 function App() {
   // const [count, setCount] = useState(0);
@@ -83,6 +84,7 @@ function App() {
   }
 
   
+
   return (
     <>
       <Clock />
@@ -90,10 +92,10 @@ function App() {
       {/* < Validate /> */}
       {/* < Dice /> */}
       {/* < BgChanger /> */}
-      < CurrencyConverter  />
+      {/* < CurrencyConverter  /> */}
 
       {/* <  RandomPassword /> */}
-      {/* <   /> */}
+      < TicTacToe />
       {/* <   /> */}
       {/* < SubmissionForm /> */}
     </>
