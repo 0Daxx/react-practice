@@ -87,7 +87,7 @@ function App() {
 
   return (
     <>
-      <Clock />
+      {/* <Clock /> */}
       {/* < Joke /> */}
       {/* < Validate /> */}
       {/* < Dice /> */}
