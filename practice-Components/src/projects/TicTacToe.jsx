@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 
-function Box({ value, onClickBox, rowNum, colNum }) {
+import "./TicTacToe.css";
+
+function Box({ value, onClickBox, rowNum, colNum , win  }) {
   return (
     <>
-      {/* box tells Parent which was clicked  */}
-      <button
-        disabled={value !== null}
+      <button  
+        disabled={value !== null }
+        className={ typeof(win) === 'object' && win.includes(`${rowNum}${colNum}`) ? 'win' : 'box' }
         onClick={() => {
           onClickBox(rowNum, colNum);
         }}>
@@ -21,38 +23,61 @@ export function TicTacToe() {
     [null, null, null],
   ]);
   const [currentPlayer, setCurrentPlayer] = useState(1);
-
+  
+  const [win,setWin] = useState(false);
   // TASK : check if there is a winner
-  useEffect(() => {
-    function checkWinner() {
-      // check if col0 === 1 
-      // check row 
-      for (let row = 0; row < squares.length; row++) {
-        const element = squares[row][0];
-        for (let col = 1; col < row.length; col++) {
-          if (element === squares[row][col] ){
-            return row , col 
+    useEffect(() => {
+      function checkWinner() {
+        // check rows
+        for (let i = 0; i < squares.length; i++) {
+          const [first, second, third] = squares[i];
+          if (first === second && second === third && first !== null) {
+            setWin(  [`${i}0` , `${i}1`, `${i}2`] );
+            return [i, 0];
           }
-      }
-      for (let i = 1; i < squares.length; i++) {
-        // 
-        const element = squares[0][i];
-        for (let j = 1; j < i.length; j++) {
-          if (element === squares[i][j] ){
-            return i , j 
+        }
+        // check cols
+        for (let i = 0; i < squares[0].length; i++) {
+          const first = squares[0][i];
+          const second = squares[1][i];
+          const third = squares[2][i];
+          if (first === second && second === third && first !== null) {
+            setWin( [`0${i}` , `1${i}`, `2${i}`] );
+            return [[0, i], [1, i], [2, i]];
           }
+        }
+        // check diagonals
+        const firstDiagonal =
+        squares[0][0] === squares[1][1] &&
+        squares[1][1] === squares[2][2] &&
+        squares[0][0] !== null;
+        const secondDiagonal =
+        squares[0][2] === squares[1][1] &&
+        squares[1][1] === squares[2][0] &&
+        squares[0][2] !== null;
+        if (firstDiagonal) {
+          setWin( ["00", "11","22"] );
+          return [[0, 0], [1, 1], [2, 2]];
+        }
+        if (secondDiagonal) {
+          setWin( ["20" , "11", "02"] );
+          return [[2, 0] , [1, 1], [0, 2]];
+        }
+        return null;
       }
-    }
-        // console.log(element);
-      // check for col 
+      // check if there is a winner : NOW pass this array to Box to see if its key is in this array 
+      let win = checkWinner();
+      console.log(win);
       
-    }
-  }
-    // check if there is a
-  }, [squares]);
+      // if (win) {
+      //   setWin(currentPlayer);
+      // }
+    }, [squares, currentPlayer])
 
   function onClickBox(row, col) {
-    // console.log(row, col);
+    if (win) {
+      return;
+    }
     const newSquares = [...squares];
     newSquares[row][col] = currentPlayer;
     setSquares(newSquares);
@@ -73,22 +98,22 @@ export function TicTacToe() {
         }}>
         {squares.map((row, rowNum) => {
           return row.map((value, colNum) => (
-            // return row.map((col ) => (
-            // row , col
             <Box
               key={String(rowNum) + String(colNum)}
               value={value}
               rowNum={rowNum}
               colNum={colNum}
               onClickBox={onClickBox}
+              win={win}
             />
           ));
         })}
-        {/* <Box /> */}
       </div>
     </>
   );
 }
+
+
 /*
 RN : 
 how to find out which element to change value of 
