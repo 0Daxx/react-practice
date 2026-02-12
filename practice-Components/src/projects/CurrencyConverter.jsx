@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 
 function CurrencyInput({
-  currency,setCurrency,number,setNumber,currencies,
+  currency,
+  setCurrency,
+  number,
+  setNumber,
+  currencies,
 }) {
   return (
     <>
@@ -53,8 +57,6 @@ export default function CurrencyConverter() {
       const resp = await fetch(`https://api.frankfurter.dev/v1/currencies`);
       const data = await resp.json();
       setCurrencies(data);
-      // console.log(data);
-      // console.log(data["AUD"]);
     }
     fetchSymbols();
   }, [currency]);
@@ -62,40 +64,46 @@ export default function CurrencyConverter() {
   // once fetched the rate , no need to recall the api
   useEffect(() => {
     async function fetchRates(from, to, amount) {
-      let data , convertedAmount;
-      if (!currency || !currency2 || !number) return;
-      // CHECK
-      // if (from !== "Select" && to !== "Select" && amount !== 0 && !localStorage.getItem("rateData") ) {
-      if (from !== "Select" && to !== "Select" && amount !== 0 ) {
+      let data, convertedAmount = 0 ;
+
+      data = JSON.parse(localStorage.getItem('data'));
+      if (
+        !currency || !currency2 || !number || from === "Select" || to === "Select" || amount === 0
+      ) {
+        return;
+      }
+      // IF exists
+      else if ( 
+        data !== null && 
+        data.base === from && 
+        data.rates[to]   
+      ) {
+        console.log(` \n\n FETCHED FROM LocalStorage\n\n `);
+        console.log(data);
         
+        convertedAmount = (amount * Number(data.rates[to])).toFixed(2);
+      } 
+      else {
+        console.log(`API FETCHED \n\n `);
         const resp = await fetch(
           `https://api.frankfurter.dev/v1/latest?base=${from}&symbols=${to}`,
         );
         data = await resp.json();
-        // data = await resp.json(data.rates[to]);
-        
-        // save the data in Object 
-        // localStorage.setItem("rateData" , { "from" : from , "to" : to , "rate" : data.rates[to]} );
+        // save the data in local storage
+        localStorage.setItem("data", JSON.stringify(data));
+        // CHECK
+        // const localData = JSON.parse(localStorage.getItem("data")); 
+        // console.log(` DATA SAVED IN localStorage : ${localData} `);
 
-        convertedAmount = (amount * data.rates[to]).toFixed(2); 
-        
-      }else{
-        
-        // const rate =  localStorage.getItem("rateData");
-        // if(from === rate["from"] && rate["to"] === to ){
-        //   convertedAmount = (amount * Number(rate["rate"]) ).toFixed(2); 
-        // }
-      }
+        convertedAmount = (amount * data.rates[to]).toFixed(2);
+      } 
+      setNumber2(convertedAmount);
       console.log(` FROM  ${from} TO ${to} `);
       console.log(`convertedAmount : ${convertedAmount}`);
       console.log(data);
-      
-      setNumber2(convertedAmount);
     }
     fetchRates(currency, currency2, number);
-    // setNumber2(convertedAmount);
   }, [number, currency, currency2]);
-
 
   function swapCurrency() {
     setCurrency(currency2);
@@ -125,7 +133,10 @@ export default function CurrencyConverter() {
       <button onClick={swapCurrency}>SWAP</button>
 
       <button> Fetch </button>
-      <p> {number} {currency} is {number2} {currency2} </p>
+      <p>
+        {" "}
+        {number} {currency} is {number2} {currency2}{" "}
+      </p>
     </>
   );
 }
@@ -135,7 +146,7 @@ TASK
 
 -> LOCAL STORAGE of rate of the currency 
 -> fetch the symbol of the currency from the api
-
+-> Suggest : To currency based on user ip 
 CHART of symbol price , 1 day , week , year 
 
 
@@ -185,4 +196,62 @@ CHART of symbol price , 1 day , week , year
         Goal: Show a simple line graph of the currency's performance over the last 7 days.
 
         Concept: Third-party Libraries & useRef. You’ll need to integrate a library like Chart.js or Recharts, forcing you to learn how React interacts with non-React DOM elements using the useRef hook.
+
+MORE FEATURES CAN BE ADDED : 
+To make this reflect a professional, real-world application, we can focus on performance, reliability, and user experience. 🛠️
+
+Here are 10 ways to optimize your currency converter:
+1. The "Swap" Optimization 🔄
+
+When you swap "From" and "To," the useEffect triggers because the dependencies changed. However, the rate is already in your state or storage! You can add a check to see if the required rate is already present in your data object before calling fetch.
+2. Request Deduplication 🛑
+
+If a user clicks the "Convert" button multiple times quickly, or if the state updates rapidly, you might send 5 identical API requests. You can use an AbortController to cancel the previous fetch if a new one starts.
+3. State Normalization 📊
+
+Instead of saving one single "rate" object, professional apps often store a "rates" dictionary in localStorage keyed by the base currency:
+JSON
+
+{
+  "USD": { "INR": 83, "EUR": 0.92 },
+  "EUR": { "USD": 1.08, "INR": 90 }
+}
+
+4. Handling API Expiration ⏰
+
+Exchange rates change! Saving data forever in localStorage leads to stale prices.
+
+    Concept: Timestamping. Save the time of the fetch and only use the cache if it's less than, say, 1 hour old.
+
+5. Loading & Error States ⌛
+
+Users hate staring at a frozen screen.
+
+    Concept: UX Feedback. Add an isLoading and an error state to show a spinner or a "Check your internet" message.
+
+6. Debouncing Input ⌨️
+
+If the conversion happens "as you type," use a debounce function. This waits for the user to stop typing for 300-500ms before triggering the calculation or fetch.
+7. Custom Hook for Logic 🪝
+
+Move the fetchRates and localStorage logic out of the component and into a custom hook like useCurrency().
+
+    Concept: Separation of Concerns. This keeps your UI component clean and focuses only on rendering.
+
+8. Use constants for Config 📂
+
+Avoid "magic strings" like "https://api.frankfurter.dev/v1/". Move URLs and default values into a separate constants.js file.
+9. Input Validation & Formatting 🔢
+
+Handle edge cases: What if the user pastes a negative number or a string? Use a regex or a library to ensure the input is always a valid currency format.
+10. Memoization with useMemo 🧠
+
+If you have a complex calculation based on the rates, wrap it in useMemo. This prevents the math from running on every single re-render of the component unless the numbers actually change.
+Let's start with the "Swap" optimization (Point #1)
+
+Imagine the user has "USD" to "INR" selected and your app has already fetched the rates. If the user clicks a "Swap" button, your from becomes "INR" and your to becomes "USD".
+
+Currently, your useEffect sees the change and runs. If we want to avoid the API call during a swap, we need to know the inverse rate.
+
+If the rate for 1 USD=80 INR, how would you mathematically calculate the rate for 1 INR in USD without asking the API?
 */

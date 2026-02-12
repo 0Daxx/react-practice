@@ -92,10 +92,10 @@ function App() {
       {/* < Validate /> */}
       {/* < Dice /> */}
       {/* < BgChanger /> */}
-      {/* < CurrencyConverter  /> */}
+      < CurrencyConverter  />
 
       {/* <  RandomPassword /> */}
-      < TicTacToe />
+      {/* < TicTacToe /> */}
       {/* <   /> */}
       {/* < SubmissionForm /> */}
     </>
