@@ -94,7 +94,6 @@ export default function CurrencyConverter() {
         // CHECK
         // const localData = JSON.parse(localStorage.getItem("data")); 
         // console.log(` DATA SAVED IN localStorage : ${localData} `);
-
         convertedAmount = (amount * data.rates[to]).toFixed(2);
       } 
       setNumber2(convertedAmount);

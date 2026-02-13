@@ -20,6 +20,7 @@ import { BgChanger } from "./projects/BgChanger";
 import { RandomPassword } from "./projects/RandomPassword";
 import CurrencyConverter from "./projects/CurrencyConverter";
 import { TicTacToe } from "./projects/TicTacToe";
+import { Meditation } from "./projects/Meditation";
 
 function App() {
   // const [count, setCount] = useState(0);
@@ -92,8 +93,8 @@ function App() {
       {/* < Validate /> */}
       {/* < Dice /> */}
       {/* < BgChanger /> */}
-      < CurrencyConverter  />
-
+      {/* < CurrencyConverter  /> */}
+      < Meditation />
       {/* <  RandomPassword /> */}
       {/* < TicTacToe /> */}
       {/* <   /> */}
